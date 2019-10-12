@@ -53,10 +53,10 @@ public class Archer {
     }
 
     /**
-     * This methods creates a List of archers.
+     * This methods creates a List of archers. Supply the id of the last generated archer.
      *
      * @param nrOfArchers the number of archers in the list.
-     * @return
+     * @return List
      */
     public static List<Archer> generateArchers(int nrOfArchers, int startId) {
         List<Archer> archers = new ArrayList<>(nrOfArchers);
@@ -65,6 +65,7 @@ public class Archer {
             startId = DEFAULT_START_ID;
         }
         for (int i = 0; i < nrOfArchers; i++) {
+            startId++;
             Archer archer = new Archer(Names.nextFirstName(), Names.nextSurname(), startId);
             letArcherShoot(archer, nrOfArchers % 100 == 0);
             archers.add(archer);
