@@ -11,10 +11,17 @@ import java.util.*;
  * in your report.
  */
 public class Archer {
+    private int id; // Once assigned a value is not allowed to change.
     public static int MAX_ARROWS = 3;
     public static int MAX_ROUNDS = 10;
+    private int totalScore = 0;
+
+    private String firstName;
+    private String lastName;
+
+    private Integer weightedScore;
+    private HashMap<Integer, int[]> points = new HashMap<>();
     private static Random randomizer = new Random();
-    private int id; // Once assigned a value is not allowed to change.
 
     /**
      * Constructs a new instance of bowman and assigns a unique ID to the instance. The ID is not allowed to ever
@@ -26,6 +33,8 @@ public class Archer {
      * @param lastName the archers surname.
      */
     private Archer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     /**
@@ -36,10 +45,10 @@ public class Archer {
      * @param points the points shot during the round.
      */
     public void registerScoreForRound(int round, int[] points) {
-    }
-
-    public int getTotalScore() {
-        return 0;
+        for (int point : points){
+            this.totalScore += point;
+        }
+        this.points.put(round, points);
     }
 
     /**
@@ -92,5 +101,40 @@ public class Archer {
 
     private static int shoot(int min) {
         return Math.max(min, randomizer.nextInt(11));
+    }
+
+    /**
+     * Returns id, score and weighted score.
+     * @return String
+     */
+    public String toString() {
+        String output = String.format("%d (%d/%d)%n", this.getId(), this.getTotalScore(), this.getWeightedScore());
+        return output;
+    }
+
+    // Getters & Setters
+
+    public int getWeightedScore() {
+        return this.weightedScore;
+    }
+
+    public int getTotalScore() {
+        return this.totalScore;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
