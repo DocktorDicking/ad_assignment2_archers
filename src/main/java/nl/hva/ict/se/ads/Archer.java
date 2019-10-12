@@ -11,7 +11,7 @@ import java.util.*;
  * in your report.
  */
 public class Archer {
-    private int id; // Once assigned a value is not allowed to change.
+    private final int id;
     public static int MAX_ARROWS = 3;
     public static int MAX_ROUNDS = 10;
     private int totalScore = 0;
@@ -32,9 +32,10 @@ public class Archer {
      * @param firstName the archers first name.
      * @param lastName the archers surname.
      */
-    private Archer(String firstName, String lastName) {
+    private Archer(String firstName, String lastName, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.id = id;
     }
 
     /**
@@ -57,15 +58,27 @@ public class Archer {
      * @param nrOfArchers the number of archers in the list.
      * @return
      */
-    public static List<Archer> generateArchers(int nrOfArchers) {
+    public static List<Archer> generateArchers(int nrOfArchers, int startId) {
         List<Archer> archers = new ArrayList<>(nrOfArchers);
+        final int DEFAULT_START_ID = 135788;
+        if (startId < DEFAULT_START_ID) {
+            startId = DEFAULT_START_ID;
+        }
         for (int i = 0; i < nrOfArchers; i++) {
-            Archer archer = new Archer(Names.nextFirstName(), Names.nextSurname());
+            Archer archer = new Archer(Names.nextFirstName(), Names.nextSurname(), startId);
             letArcherShoot(archer, nrOfArchers % 100 == 0);
             archers.add(archer);
         }
         return archers;
+    }
 
+    /**
+     * Method overloading. When there is no list of archers yet use this method.
+     * @param nrOfArchers int
+     * @return List
+     */
+    public static List<Archer> generateArchers(int nrOfArchers) {
+        return generateArchers(nrOfArchers, 0);
     }
 
     /**
@@ -113,11 +126,6 @@ public class Archer {
     }
 
     // Getters & Setters
-
-    public int getWeightedScore() {
-        return this.weightedScore;
-    }
-
     public int getTotalScore() {
         return this.totalScore;
     }
@@ -136,5 +144,13 @@ public class Archer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setWeightedScore(Integer weightedScore) {
+        this.weightedScore = weightedScore;
+    }
+
+    public int getWeightedScore() {
+        return this.weightedScore;
     }
 }
