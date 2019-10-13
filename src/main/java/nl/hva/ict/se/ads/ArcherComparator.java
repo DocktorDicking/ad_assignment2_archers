@@ -4,6 +4,13 @@ package nl.hva.ict.se.ads;
 
 public class ArcherComparator implements Comparator<Archer> {
 
+    /**
+     *
+     *
+     * @param one Archer
+     * @param two Archer
+     * @return int
+     */
     @Override
     public int compare(Archer one, Archer two) {
         if (one.getTotalScore() == two.getTotalScore()) {
