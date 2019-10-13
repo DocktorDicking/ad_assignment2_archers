@@ -20,13 +20,13 @@ class ChampionSelectorTest {
 
     @Test
     public void selInsSortAndCollectionSortResultInSameOrder() {
-        List<Archer> unsortedArchersForSelIns = Archer.generateArchers(23);
-        List<Archer> unsortedArchersForCollection = new ArrayList<>(unsortedArchersForSelIns);
+        List<Archer> archersForSelIns = Archer.generateArchers(23);
+        List<Archer> archersForCollection = new ArrayList<>(archersForSelIns);
 
-        List<Archer> sortedArchersSelIns = ChampionSelector.selInsSort(unsortedArchersForSelIns, comparator);
-        List<Archer> sortedArchersCollection = ChampionSelector.collectionSort(unsortedArchersForCollection, comparator);
+        ChampionSelector.selInsSort(archersForSelIns, comparator);
+        ChampionSelector.collectionSort(archersForCollection, comparator);
 
-        assertEquals(sortedArchersCollection, sortedArchersSelIns);
+        assertEquals(archersForCollection, archersForSelIns);
     }
 
 }
