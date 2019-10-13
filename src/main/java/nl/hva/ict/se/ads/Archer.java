@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Holds the name, archer-id and the points scored for 30 arrows.
- *
+ * <p>
  * Archers MUST be created by using one of the generator methods. That is way the constructor is private and should stay
  * private. You are also not allowed to add any constructor with an access modifier other then private unless it is for
  * testing purposes in which case the reason why you need that constructor must be contained in a very clear manner
@@ -21,6 +21,7 @@ public class Archer {
 
     private Integer weightedScore;
     private HashMap<Integer, int[]> points = new HashMap<>();
+    private HashMap<Integer, Integer> weightedScores = new HashMap<>();
     private static Random randomizer = new Random();
 
     /**
@@ -30,7 +31,7 @@ public class Archer {
      * ID 135788;
      *
      * @param firstName the archers first name.
-     * @param lastName the archers surname.
+     * @param lastName  the archers surname.
      */
     private Archer(String firstName, String lastName, int id) {
         this.firstName = firstName;
@@ -42,11 +43,11 @@ public class Archer {
      * Registers the point for each of the three arrows that have been shot during a round. The <code>points</code>
      * parameter should hold the three points, one per arrow.
      *
-     * @param round the round for which to register the points.
+     * @param round  the round for which to register the points.
      * @param points the points shot during the round.
      */
     public void registerScoreForRound(int round, int[] points) {
-        for (int point : points){
+        for (int point : points) {
             this.totalScore += point;
         }
         this.points.put(round, points);
@@ -68,6 +69,7 @@ public class Archer {
             startId++;
             Archer archer = new Archer(Names.nextFirstName(), Names.nextSurname(), startId);
             letArcherShoot(archer, nrOfArchers % 100 == 0);
+            calculateWeightedScore(archer);
             archers.add(archer);
         }
         return archers;
@@ -75,6 +77,7 @@ public class Archer {
 
     /**
      * Method overloading. When there is no list of archers yet use this method.
+     *
      * @param nrOfArchers int
      * @return List
      */
@@ -101,7 +104,9 @@ public class Archer {
 
     private static void letArcherShoot(Archer archer, boolean isBeginner) {
         for (int round = 0; round < MAX_ROUNDS; round++) {
-            archer.registerScoreForRound(round, shootArrows(isBeginner ? 0 : 1));
+            int [] points = shootArrows(isBeginner ? 0 : 1);
+            archer.registerScoreForRound(round, points);
+            archer.setWeightedScoreArray(points);
         }
     }
 
@@ -118,7 +123,51 @@ public class Archer {
     }
 
     /**
+     *
+     * @param points
+     */
+    private void setWeightedScoreArray(int[] points) {
+        for (int point : points) {
+            Integer count = this.weightedScores.get(point);
+
+            if (count == null) {
+                this.weightedScores.put(point, 1);
+            } else {
+                this.weightedScores.put(point, count + 1);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param archer
+     */
+    private static void calculateWeightedScore(Archer archer) { //TODO: Check this methods calculation with the assignment.
+        HashMap<Integer, Integer> weightedScores = archer.getWeightedScores();
+        int weightedScore = 0;
+
+        for (int i = 0; i < 11; i++) { //TODO: Magic number
+            Integer score = weightedScores.get(i);
+            if(score != null){
+                int multiplier = i + 1;
+                if(i == 0) {
+                    weightedScore -= score * 7;
+                } else {
+                    weightedScore += score * multiplier;
+                }
+            }
+        }
+        archer.setWeightedScore(weightedScore);
+    }
+
+    private HashMap<Integer, Integer> getWeightedScores()
+    {
+        return this.weightedScores;
+    }
+
+    /**
      * Returns id, score and weighted score.
+     *
      * @return String
      */
     public String toString() {
