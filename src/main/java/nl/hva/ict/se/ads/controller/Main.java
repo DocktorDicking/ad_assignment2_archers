@@ -15,7 +15,7 @@ public class Main {
                 System.out.println("GoodBye!");
                 run = false;
             } else {
-                if (numOfArchers > 25000) {
+                if (numOfArchers >= 25000) {
                     System.out.println("Woah! Much archers, Much Sorting....\n");
                 }
 

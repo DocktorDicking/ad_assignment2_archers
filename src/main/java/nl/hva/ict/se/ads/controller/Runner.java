@@ -4,6 +4,7 @@ import nl.hva.ict.se.ads.Archer;
 import nl.hva.ict.se.ads.ArcherComparator;
 import nl.hva.ict.se.ads.ChampionSelector;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,24 +17,28 @@ public class Runner {
 
     public static void sSort(int numOfArchers) {
         archers = Archer.generateArchers(numOfArchers);
+        List<Archer> myArchers = new ArrayList<>(archers);
+
         startTime = System.currentTimeMillis();
-        ChampionSelector.selInsSort(archers, comparator);
+        ChampionSelector.selInsSort(myArchers, comparator);
         stopTime = System.currentTimeMillis();
         outputToConsole(numOfArchers, "SELECTION SORT");
     }
 
     public static void qSort(int numOfArchers) {
-        archers = Archer.generateArchers(numOfArchers);
+        List<Archer> myArchers = new ArrayList<>(archers);
+
         startTime = System.currentTimeMillis();
-        ChampionSelector.quickSort(archers, comparator);
+        ChampionSelector.quickSort(myArchers, comparator);
         stopTime = System.currentTimeMillis();
         outputToConsole(numOfArchers, "QUICK SORT");
     }
 
     public static void cSort(int numOfArchers) {
-        archers = Archer.generateArchers(numOfArchers);
+        List<Archer> myArchers = new ArrayList<>(archers);
+
         startTime = System.currentTimeMillis();
-        ChampionSelector.quickSort(archers, comparator);
+        ChampionSelector.quickSort(myArchers, comparator);
         stopTime = System.currentTimeMillis();
         outputToConsole(numOfArchers, "COLLECTION SORT");
     }
