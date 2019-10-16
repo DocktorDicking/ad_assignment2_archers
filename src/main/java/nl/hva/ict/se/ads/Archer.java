@@ -43,8 +43,8 @@ public class Archer {
      * Registers the point for each of the three arrows that have been shot during a round. The <code>points</code>
      * parameter should hold the three points, one per arrow.
      *
-     * @param round  the round for which to register the points.
-     * @param points the points shot during the round.
+     * @param round  int
+     * @param points list
      */
     public void registerScoreForRound(int round, int[] points) {
         for (int point : points) {
