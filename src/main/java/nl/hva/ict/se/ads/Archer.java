@@ -12,14 +12,15 @@ import java.util.*;
  */
 public class Archer {
     private final int id;
-    public static int MAX_ARROWS = 3;
-    public static int MAX_ROUNDS = 10;
+    public static final int MAX_ARROWS = 3;
+    public static final int MAX_ROUNDS = 10;
+    public static final int MAX_SCORE = 11; //maximum score is below 11 (10)
     private int totalScore = 0;
 
     private String firstName;
     private String lastName;
 
-    private Integer weightedScore;
+    private Integer weightedScore = 0;
     private HashMap<Integer, int[]> points = new HashMap<>();
     private HashMap<Integer, Integer> weightedScores = new HashMap<>();
     private static Random randomizer = new Random();
@@ -98,10 +99,12 @@ public class Archer {
         return null;
     }
 
-    public int getId() {
-        return id;
-    }
-
+    /**
+     * Let's an archer shoot all arrows for all rounds.
+     *
+     * @param archer Archer
+     * @param isBeginner boolean
+     */
     private static void letArcherShoot(Archer archer, boolean isBeginner) {
         for (int round = 0; round < MAX_ROUNDS; round++) {
             int [] points = shootArrows(isBeginner ? 0 : 1);
@@ -110,6 +113,13 @@ public class Archer {
         }
     }
 
+    /**
+     * pew pew pew!
+     *
+     * shoots 3 arrows.
+     * @param min int
+     * @return int[]
+     */
     private static int[] shootArrows(int min) {
         int[] points = new int[MAX_ARROWS];
         for (int arrow = 0; arrow < MAX_ARROWS; arrow++) {
@@ -118,13 +128,22 @@ public class Archer {
         return points;
     }
 
+    /**
+     * pew!
+     *
+     * shoots one arrow.
+     *
+     * @param min int
+     * @return int
+     */
     private static int shoot(int min) {
-        return Math.max(min, randomizer.nextInt(11));
+        return Math.max(min, randomizer.nextInt(MAX_SCORE));
     }
 
     /**
+     * Saves points into hashmap. Used to calculate Weighted score.
      *
-     * @param points
+     * @param points array
      */
     private void setWeightedScoreArray(int[] points) {
         for (int point : points) {
@@ -139,14 +158,14 @@ public class Archer {
     }
 
     /**
-     *
-     * @param archer
+     * Calculates weighted score using the data in the weigthtedscores hashmap.
+     * @param archer Archer
      */
-    private static void calculateWeightedScore(Archer archer) { //TODO: Check this methods calculation with the assignment.
+    private static void calculateWeightedScore(Archer archer) {
         HashMap<Integer, Integer> weightedScores = archer.getWeightedScores();
         int weightedScore = 0;
 
-        for (int i = 0; i < 11; i++) { //TODO: Magic number
+        for (int i = 0; i < MAX_SCORE; i++) { //Loop over all possible scores.
             Integer score = weightedScores.get(i);
             if(score != null){
                 int multiplier = i + 1;
@@ -202,5 +221,41 @@ public class Archer {
 
     public int getWeightedScore() {
         return this.weightedScore;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * FOLLOWING METHODS ARE ONLY FOR TESTING (UNIT TEST) REMOVE BEFORE PRODUCTION.
+     *
+     * By only changing the points the weighted score is not recalculated.
+     * Using these methods it is possible to recalculate the Weighted score.
+     *
+     * Better way to change weighted score outside of this class is to use reflection. This is a temperory fix.
+     */
+
+    /**
+     * Sets weighted score array (hashmap)
+     * @param points int
+     */
+    public void debug_setWeightedScoreArray(int [] points) {
+        setWeightedScoreArray(points);
+    }
+
+    /**
+     * Clears points and weighted scores maps.
+     */
+    public void debug_clearScores() {
+        this.points.clear();
+        this.weightedScores.clear();
+    }
+
+    /**
+     * Triggers method to recalculate weighted scores.
+     */
+    public void debug_calculateWeightedScore() {
+        calculateWeightedScore(this);
     }
 }
