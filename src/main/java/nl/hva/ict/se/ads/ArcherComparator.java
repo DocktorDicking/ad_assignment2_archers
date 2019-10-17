@@ -5,7 +5,7 @@ package nl.hva.ict.se.ads;
 public class ArcherComparator implements Comparator<Archer> {
 
     /**
-     *
+     * Compares archers by the rules in the assignment.
      *
      * @param one Archer
      * @param two Archer
