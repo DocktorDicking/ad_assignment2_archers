@@ -19,15 +19,22 @@ public class Runner {
     private static long startTime;
     private static long stopTime;
 
+    /**
+     * Generates initial list of archers.
+     *
+     * @param numOfArchers int
+     */
     public static void setUp(int numOfArchers) {
+        //If archers in initiated, clear data.
         if (archers != null) {
-            if (archers.size() > 0) {
-                archers.clear();
-            }
+            archers.clear();
         }
         archers = Archer.generateArchers(numOfArchers);
     }
 
+    /**
+     * Selection sort
+     */
     public static void sSort() {
         List<Archer> myArchers = new ArrayList<>(archers);
 
@@ -37,6 +44,9 @@ public class Runner {
         outputToConsole(myArchers.size(), "SELECTION SORT");
     }
 
+    /**
+     * Quick sort
+     */
     public static void qSort() {
         List<Archer> myArchers = new ArrayList<>(archers);
 
@@ -46,6 +56,9 @@ public class Runner {
         outputToConsole(myArchers.size(), "QUICK SORT");
     }
 
+    /**
+     * Collection sort (Merge sort)
+     */
     public static void cSort() {
         List<Archer> myArchers = new ArrayList<>(archers);
 
@@ -55,6 +68,12 @@ public class Runner {
         outputToConsole(myArchers.size(), "COLLECTION SORT");
     }
 
+    /**
+     * Default output to console used by sorting methods to output stats.
+     *
+     * @param numOfArchers int
+     * @param sort String
+     */
     private static void outputToConsole(int numOfArchers, String sort) {
         long elapsedTime = stopTime - startTime;
         System.out.printf("Sorting algorithm: %s\nNumber of archers: %d\nElapsed time in mili seconds: %d\n\n"
