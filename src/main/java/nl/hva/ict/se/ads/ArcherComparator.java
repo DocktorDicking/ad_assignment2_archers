@@ -7,20 +7,24 @@ public class ArcherComparator implements Comparator<Archer> {
     /**
      * Compares archers by the rules in the assignment.
      *
-     * @param one Archer
-     * @param two Archer
+     * @param ArcherOne Archer
+     * @param ArcherTwo Archer
      * @return int
      */
     @Override
-    public int compare(Archer one, Archer two) {
-        //TODO: Store used data in variables and use variables to compare. Small efficiency upgrade.
+    public int compare(Archer ArcherOne, Archer ArcherTwo) {
+        int scoreOne = ArcherOne.getTotalScore();
+        int scoreTwo = ArcherTwo.getTotalScore();
 
-        if (one.getTotalScore() == two.getTotalScore()) {
-            if (one.getWeightedScore() == two.getWeightedScore()) {
-                return one.getId() - two.getId();
+        if (scoreOne == scoreTwo) {
+            scoreOne = ArcherOne.getWeightedScore();
+            scoreTwo = ArcherTwo.getWeightedScore();
+
+            if (scoreOne == scoreTwo) {
+                return ArcherOne.getId() - ArcherTwo.getId();
             }
-            return one.getWeightedScore() - two.getWeightedScore();
+            return scoreOne - scoreTwo;
         }
-        return one.getTotalScore() - two.getTotalScore();
+        return scoreOne - scoreTwo;
     }
 }
