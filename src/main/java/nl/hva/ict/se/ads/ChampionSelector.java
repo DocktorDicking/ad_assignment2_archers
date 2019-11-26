@@ -59,6 +59,8 @@ public class ChampionSelector {
      * @param scoringScheme Comparator
      */
     private static void sort(List<Archer> archers, int low, int high, Comparator<Archer> scoringScheme) {
+        //TODO: Not maintainable, do not do this in "RL".
+        //TODO: Make a short report on how this algorithm works.
         int i = low;
         int j = high;
 
@@ -67,6 +69,7 @@ public class ChampionSelector {
             //Go through list and look for values bigger/smaller than pivot.
             while (scoringScheme.compare(archers.get(i), pivot) > 0) {
                 i++;
+                System.out.println(scoringScheme.compare(archers.get(i), pivot) > 0);
             }
             while (scoringScheme.compare(archers.get(j), pivot) < 0) {
                 j--;

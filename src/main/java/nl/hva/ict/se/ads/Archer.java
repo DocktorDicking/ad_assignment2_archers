@@ -11,6 +11,7 @@ import java.util.*;
  * in your report.
  */
 public class Archer {
+    //TODO: Make stuff private that can be private. (all of them?)
     private final int id;
     public static final int MAX_ARROWS = 3;
     public static final int MAX_ROUNDS = 10;
@@ -47,7 +48,8 @@ public class Archer {
      * @param round  int
      * @param points list
      */
-    public void registerScoreForRound(int round, int[] points) {
+    private void registerScoreForRound(int round, int[] points) {
+        //Merge with let archer shoot.
         for (int point : points) {
             this.totalScore += point;
         }
@@ -61,6 +63,9 @@ public class Archer {
      * @return List
      */
     public static List<Archer> generateArchers(int nrOfArchers, int startId) {
+        //TODO: Bad coding practice. ID changed 'under the radar'. Excluse ID assignment to a different method?
+        //ID generation needs to stay inside this class. Now it is possible to make duplicate archer id's. Use static id's.
+        //No setter for id!!
         List<Archer> archers = new ArrayList<>(nrOfArchers);
         final int DEFAULT_START_ID = 135788;
         if (startId < DEFAULT_START_ID) {
@@ -146,6 +151,7 @@ public class Archer {
      * @param points array
      */
     private void setWeightedScoreArray(int[] points) {
+        //TODO: Merge with calculate weighted shit. We don't need a map with points.
         for (int point : points) {
             Integer count = this.weightedScores.get(point);
 
@@ -165,6 +171,8 @@ public class Archer {
         HashMap<Integer, Integer> weightedScores = archer.getWeightedScores();
         int weightedScore = 0;
 
+        //TODO: Loop over map, instead of this maxscore bullshit.
+        //TODO: Rewrite this shit to make it less complicated.
         for (int i = 0; i < MAX_SCORE; i++) { //Loop over all possible scores.
             Integer score = weightedScores.get(i);
             if(score != null){

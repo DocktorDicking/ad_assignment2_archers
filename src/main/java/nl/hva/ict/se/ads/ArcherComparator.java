@@ -13,6 +13,8 @@ public class ArcherComparator implements Comparator<Archer> {
      */
     @Override
     public int compare(Archer one, Archer two) {
+        //TODO: Store used data in variables and use variables to compare. Small efficiency upgrade.
+
         if (one.getTotalScore() == two.getTotalScore()) {
             if (one.getWeightedScore() == two.getWeightedScore()) {
                 return one.getId() - two.getId();
