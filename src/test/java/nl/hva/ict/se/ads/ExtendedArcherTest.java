@@ -24,12 +24,4 @@ public class ExtendedArcherTest {
             assertNotNull(archer.getLastName());
         }
     }
-
-    @Test
-    public void archerCustomIdsIncreaseCorrectly() {
-        int customId = 100;
-        List<Archer> archers = Archer.generateArchers(3, customId);
-        assertTrue(archers.get(1).getId() == archers.get(0).getId()+ 1);
-        assertTrue(archers.get(2).getId() == archers.get(1).getId()+ 1);
-    }
 }

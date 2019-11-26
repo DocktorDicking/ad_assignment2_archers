@@ -25,7 +25,7 @@ public class Runner {
      * @param numOfArchers int
      */
     public static void setUp(int numOfArchers) {
-        //If archers in initiated, clear data.
+        //If archers is initiated, clear data.
         if (archers != null) {
             archers.clear();
         }

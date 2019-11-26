@@ -12,7 +12,7 @@ public class ArcherComparator implements Comparator<Archer> {
      * @return int
      */
     @Override
-    public int compare(Archer ArcherOne, Archer ArcherTwo) {
+    public int compare(Archer ArcherOne, Archer ArcherTwo) { //TODO: add to report.
         int scoreOne = ArcherOne.getTotalScore();
         int scoreTwo = ArcherTwo.getTotalScore();
 
