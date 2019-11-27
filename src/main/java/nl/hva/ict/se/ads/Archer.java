@@ -72,7 +72,6 @@ public class Archer {
 
     /**
      * pew pew pew!
-     *
      * shoots 3 arrows.
      * @param min int
      * @return int[]
@@ -87,9 +86,7 @@ public class Archer {
 
     /**
      * pew!
-     *
      * shoots one arrow.
-     *
      * @param min int
      * @return int
      */
@@ -98,7 +95,11 @@ public class Archer {
     }
 
     /**
-     * Calculates weighted score using the data in the weigthtedscores hashmap.
+     * Calculates the weighted score using the points the archer scored.
+     * First the points get sorted into a hashMap. The key is the score and the value holds the amount of
+     * times this score has been scored.
+     *
+     * HashMap key: score value: # arrows
      * @param archer Archer
      */
     private static void calculateWeightedScore(Archer archer) { //TODO: add to report
@@ -108,20 +109,20 @@ public class Archer {
         //Sort points on how many times a target is hit. (3 arrows hit 0, then key = 0 and value = 3)
         for (int point : points) {
             Integer key = point;
-            if (!sortedPoints.containsKey(key)) {
+            if (!sortedPoints.containsKey(key)) { //if key does not exist: shots = 1
                 sortedPoints.put(key,1);
             } else {
-                sortedPoints.put(key, (sortedPoints.get(key) + 1));
+                sortedPoints.put(key, (sortedPoints.get(key) + 1)); //if key exist: shots = shots + 1
             }
         }
         //Calculate the actual weighted score.
         int weightedScore = 0;
-        for (Integer key : sortedPoints.keySet()) {
+        for (Integer key : sortedPoints.keySet()) { //Loop over keySet (possible scores)
             if (key == 0) {
-                weightedScore -= sortedPoints.get(key) * 7;
+                weightedScore -= sortedPoints.get(key) * 7; //score 0 = -7 weightedScore
             } else {
                 int multiplier = key + 1;
-                weightedScore += sortedPoints.get(key) * multiplier;
+                weightedScore += sortedPoints.get(key) * multiplier; //score > 0 = timesShot * multiplier
             }
         }
         archer.setWeightedScore(weightedScore);
@@ -150,7 +151,7 @@ public class Archer {
         return lastName;
     }
 
-    public void setWeightedScore(Integer weightedScore) {
+    private void setWeightedScore(Integer weightedScore) {
         this.weightedScore = weightedScore;
     }
 
