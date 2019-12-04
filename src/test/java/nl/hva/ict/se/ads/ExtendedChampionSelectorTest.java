@@ -26,12 +26,12 @@ public class ExtendedChampionSelectorTest {
      */
     @Test
     public void quickSortTest() {
-        List<Archer> archers = Archer.generateArchers(25);
-        ChampionSelector.quickSort(archers, comparator);
+        List<Archer> archers = Archer.generateArchers(155);
+        ChampionSelector.quickSort(archers, 0, (archers.size() - 1), comparator);
         Archer current;
         Archer next;
 
-        for (int i = 0; i < archers.size() - 1; i++) {
+        for (int i = 0; i < (archers.size() - 1); i++) {
             current = archers.get(i);
             next = archers.get(i + 1);
             if (current.getTotalScore() == next.getTotalScore()) {
@@ -44,10 +44,5 @@ public class ExtendedChampionSelectorTest {
                 assertTrue(current.getTotalScore() > next.getTotalScore());
             }
         }
-    }
-
-    @Test @Disabled
-    public void weightedScoreTest() {
-
     }
 }

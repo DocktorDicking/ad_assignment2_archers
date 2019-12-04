@@ -51,7 +51,7 @@ public class Runner {
         List<Archer> myArchers = new ArrayList<>(archers);
 
         startTime = System.currentTimeMillis();
-        ChampionSelector.quickSort(myArchers, comparator);
+        ChampionSelector.quickSort(myArchers, 0, (myArchers.size() - 1), comparator);
         stopTime = System.currentTimeMillis();
         outputToConsole(myArchers.size(), "QUICK SORT");
     }
@@ -63,7 +63,7 @@ public class Runner {
         List<Archer> myArchers = new ArrayList<>(archers);
 
         startTime = System.currentTimeMillis();
-        ChampionSelector.quickSort(myArchers, comparator);
+        ChampionSelector.collectionSort(myArchers, comparator);
         stopTime = System.currentTimeMillis();
         outputToConsole(myArchers.size(), "COLLECTION SORT");
     }

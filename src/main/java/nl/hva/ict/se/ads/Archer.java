@@ -43,7 +43,6 @@ public class Archer {
      * @return List
      */
     public static List<Archer> generateArchers(int nrOfArchers) {
-        //TODO: Make this class only generate archers?
         List<Archer> archers = new ArrayList<>(nrOfArchers);
         for (int i = 0; i < nrOfArchers; i++) {
             Archer archer = new Archer(Names.nextFirstName(), Names.nextSurname(), ArcherSetting.getId());

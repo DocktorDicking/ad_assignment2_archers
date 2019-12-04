@@ -24,4 +24,6 @@ public class ExtendedArcherTest {
             assertNotNull(archer.getLastName());
         }
     }
+
+
 }
