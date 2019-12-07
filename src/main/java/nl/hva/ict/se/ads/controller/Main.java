@@ -1,12 +1,15 @@
 package nl.hva.ict.se.ads.controller;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
  * MainClass to run test program.
  * Uses a while loop to keep the runtime active.
  * Runs all sorting algorithms sequentially through Runner class.
+ *
+ * Made this so i do not have to run each algorithm 100 times.
  */
 public class Main {
     public static void main(String[] args) {
@@ -15,24 +18,59 @@ public class Main {
         boolean run = true;
 
         while (run) {
-            System.out.println("Enter number of archers: ...\n(0 to quit)");
-
-            //Reads user input value
+            //input and validation
+            System.out.print("Enter number of archers, enter 0 to terminate: ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("The input is not a integer! Please provide a integer: ");
+                scanner.next();
+            }
             int numOfArchers = scanner.nextInt();
+
+            System.out.print("How many times do you want me to run?: ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("The input is not a integer! Please provide a integer: ");
+                scanner.next();
+            }
+            int runTimes = scanner.nextInt();
+
+            boolean average = false;
+            if (runTimes > 1) {
+                System.out.print("Want me to only show the average of all the runs? (true or false): ");
+                while (!scanner.hasNextBoolean()) {
+                    System.out.print("The input is not a boolean! Please provide true/false: ");
+                    scanner.next();
+                }
+                average = scanner.nextBoolean();
+            }
+            System.out.println();
+
+            //Terminate program
             if (numOfArchers == 0) {
-                //Quit
                 System.out.println("GoodBye!");
                 run = false;
-            } else {
-                if (numOfArchers >= 25000) {
-                    //Meme
-                    System.out.println("Woah! Much archers, Much Sorting....\n");
-                }
+            }
 
-                Runner.setUp(numOfArchers);
-                Runner.sSort();
-                Runner.qSort();
-                Runner.cSort();
+            //Run algorithms based on input
+            for (int i = 0; i < runTimes; i++) {
+                if (!average) {
+                    System.out.println("-----------------------------------------------------");
+                    System.out.println("Run: " + (i + 1));
+                    Runner.setUp(numOfArchers, false);
+                    Runner.sSort();
+                    Runner.qSort();
+                    Runner.cSort();
+                    System.out.println("-----------------------------------------------------");
+                } else {
+                    Runner.setUp(numOfArchers, true);
+                    Runner.sSort();
+                    Runner.qSort();
+                    Runner.cSort();
+                }
+            }
+            if (average) {
+                System.out.println("-----------------------------------------------------");
+                Runner.getAverage(runTimes);
+                System.out.println("-----------------------------------------------------");
             }
         }
     }

@@ -6,6 +6,8 @@ public class ArcherComparator implements Comparator<Archer> {
 
     /**
      * Compares archers by the rules in the assignment.
+     * When return value is negative, archerTwo haves a higher score.
+     * When return value is positive, achterOne haves a higher score.
      *
      * @param ArcherOne Archer
      * @param ArcherTwo Archer
@@ -16,11 +18,11 @@ public class ArcherComparator implements Comparator<Archer> {
         int scoreOne = ArcherOne.getTotalScore();
         int scoreTwo = ArcherTwo.getTotalScore();
 
-        if (scoreOne == scoreTwo) {
+        if (scoreOne == scoreTwo) { //If scores are equal, check weighted score
             scoreOne = ArcherOne.getWeightedScore();
             scoreTwo = ArcherTwo.getWeightedScore();
 
-            if (scoreOne == scoreTwo) {
+            if (scoreOne == scoreTwo) { //If weighted scores are equal, check id to see which archer signed up first.
                 return ArcherOne.getId() - ArcherTwo.getId();
             }
             return scoreOne - scoreTwo;

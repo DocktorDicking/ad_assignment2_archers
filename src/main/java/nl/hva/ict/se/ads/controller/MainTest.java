@@ -9,9 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * MainClass to run test program.
- * Uses a while loop to keep the runtime active.
- * Runs all sorting algorithms sequentially through Runner class.
+ * Used for testing quickSort.
  */
 public class MainTest {
     public static void main(String[] args) {
